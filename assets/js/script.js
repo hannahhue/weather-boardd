@@ -23,7 +23,9 @@ function searchLatLong() {
       console.log(data);
       var latt = "lat" + data[0].lat;
       var longg = "&lon" + data[0].lon;
+      //send info to both functions
       searchWeather(cityName, latt, longg);
+      saveHistory(cityName, latt, longg);
     });
 }
 
@@ -55,13 +57,29 @@ function displayWeather(cityInfo) {
   //wind
 }
 
-function saveHistory() {
+function saveHistory(cityName, latt, longg) {
   //saving local storage of searched cities
+  var history = {
+    cityName,
+    latt,
+    longg,
+  };
+
+  localStorage.setItem(cityName, JSON.stringify(history));
 }
 
 function displayHistory() {
+  if (localStorage.length === 0) {
+  } else {
+    for (i = 0; i < localStorage.length; i++) {}
+  }
   //call local storage display under bar
   //if clicked brings to that city ect
 }
 
+function callHistory() {}
+
+//search button calling functions
 searchBtn.on("click", searchLatLong, displayHistory);
+
+//on.clickbtn for history container any button within container will call
