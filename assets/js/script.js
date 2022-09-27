@@ -43,28 +43,30 @@ function searchFiveDay(current) {
 //should input info into container
 function displayWeather(data) {
   infoContainer.children().remove();
+  var cityNameInput = $("<h2>");
+  var cardlidate = $("<h3>");
+  var card = $("<div>");
+  var cardul = $("<ul>");
+  var cardliwind = $("<li>");
+  var cardlitemp = $("<li>");
+  var cardlihumid = $("<li>");
 
-  //present
-  //wind
-  var wind = $("<p>");
-  wind.text(data.wind.speed + " Wind Speed.");
-  infoContainer.append(wind);
-  //icon
-  // if (data.wind.speed < 15) {
-  //   infoContainer.append("🎏");
-  // } else {
-  //   infoContainer.append("🍃");
-  // }
+  card.addClass("card col-4");
+  cardul.addClass("list-group list-group-flush");
+  cardlihumid.addClass("list-group-item");
+  cardliwind.addClass("list-group-item");
+  cardlitemp.addClass("list-group-item");
+  card.append(cityNameInput);
+  card.append(cardlidate);
+  card.append(cardul);
+  cardul.append(cardlihumid);
+  cardul.append(cardlitemp);
+  cardul.append(cardliwind);
 
-  //temp
-  var temp = $("<p>");
-  temp.text(data.main.feels_like + " Degrees.");
-  infoContainer.append(temp);
+  infoContainer.append(card);
 
-  //humidity
-  var humid = $("<p>");
-  humid.text(data.main.humidity + " Humidity.");
-  infoContainer.append(humid);
+  cityNameInput.text(data.dt.);
+  
 }
 
 //five day cast inputs
