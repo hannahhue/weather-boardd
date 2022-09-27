@@ -1,5 +1,6 @@
 var apiForecast = "https://api.openweathermap.org/data/2.5/weather?q=";
 var apiKey = "bae3b25e0cbb2d09fb32215030ed2ee9";
+var apiFiveDay = "https://api.openweathermap.org/data/2.5/forecast?";
 
 //assign
 var historyContainer = $("#historyContainer");
@@ -14,12 +15,25 @@ function searchWeather() {
   var cityName = searchBar.val().trim();
   fetch(apiForecast + cityName + "&units=metric&appid=" + apiKey)
     .then(function (response) {
-      console.log(response);
       return response.json();
     })
     .then(function (data) {
       console.log(data);
       displayWeather(data);
+      searchFiveDay(data);
+    });
+}
+
+function searchFiveDay(current) {
+  fetch(
+    `${apiFiveDay}lat=${current.coord.lat}&lon=${current.coord.lon}&units=metric&appid=${apiKey}`
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      displayWeatherFiveDay(data);
     });
 }
 
