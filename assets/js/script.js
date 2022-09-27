@@ -1,7 +1,6 @@
-//"unauthorized key wont display ect error....401"
-var apiForecast = "https://api.openweathermap.org/2.5/weather?q=";
-var latLong = "https://api.openweathermap.org/geo/1.0/direct?q=";
+var apiForecast = "https://api.openweathermap.org/data/2.5/weather?q=";
 var apiKey = "bae3b25e0cbb2d09fb32215030ed2ee9";
+
 //assign
 var historyContainer = $("#historyContainer");
 var searchBar = $("#bar");
@@ -13,7 +12,7 @@ var fiveDay = $("#5day");
 //grabbing city in from api and turning into string
 function searchWeather() {
   var cityName = searchBar.val().trim();
-  fetch(apiForecast + cityName + "&units=imparial&appid=" + apiKey)
+  fetch(apiForecast + cityName + "&units=metric&appid=" + apiKey)
     .then(function (response) {
       console.log(response);
       return response.json();
@@ -26,18 +25,53 @@ function searchWeather() {
 
 //api key wont work to intput info
 //should input info into container
-function displayWeather(cityInfo) {
+function displayWeather(data) {
   //present
-  //icon
-  //temp
-  //humidity
   //wind
-  //5days
+  var wind = $("<p>");
+  wind.text(data.wind.speed + " Wind Speed.");
+  infoContainer.append(wind);
   //icon
+  if (data.wind.speed < 15) {
+    infoContainer.append("🎏");
+  } else {
+    infoContainer.append("🍃");
+  }
+
   //temp
+  var temp = $("<p>");
+  temp.text(data.main.feels_like + " Degrees.");
+  infoContainer.append(temp);
+
   //humidity
-  //wind
+  var humid = $("<p>");
+  humid.text(data.main.humidity + " Humidity.");
+  infoContainer.append(humid);
 }
+
+// function displayWeatherFiveDay(data) {
+//   //5days
+//   //wind
+//   var wind = $("<p>");
+//   wind.text(data.wind.speed + " Wind Speed.");
+//   infoContainer.append(wind);
+//   //icon
+//   if (data.wind.speed < 15) {
+//     infoContainer.append("🎏");
+//   } else {
+//     infoContainer.append("🍃");
+//   }
+
+//   //temp
+//   var temp = $("<p>");
+//   temp.text(data.main.feels_like + " Degrees.");
+//   infoContainer.append(temp);
+
+//   //humidity
+//   var humid = $("<p>");
+//   humid.text(data.main.humidity + " Humidity.");
+//   infoContainer.append(humid);
+// }
 
 function saveHistory(cityName, latt, longg) {
   //saving local storage of searched cities
@@ -59,9 +93,9 @@ function displayHistory() {
   //if clicked brings to that city ect
 }
 
-function callHistory() {}
+// function callHistory() {}
 
 //search button calling functions
-searchBtn.on("click", searchLatLong);
+searchBtn.on("click", searchWeather);
 
 //on.clickbtn for history container any button within container will call
