@@ -10,31 +10,12 @@ var infoContainer = $("#infoContainer");
 var fiveDay = $("#5day");
 
 //search input
-
-//starting function when clicked search button
-//takes info from searchbar and input into string
-function searchLatLong() {
-  cityName = searchBar.val().trim();
-  fetch(latLong + cityName + apiKey)
+//grabbing city in from api and turning into string
+function searchWeather() {
+  var cityName = searchBar.val().trim();
+  fetch(apiForecast + cityName + "&units=imparial&appid=" + apiKey)
     .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      var latt = "lat" + data[0].lat;
-      var longg = "&lon" + data[0].lon;
-      //send info to both functions
-      searchWeather(cityName, latt, longg);
-      saveHistory(cityName, latt, longg);
-    });
-}
-console.log();
-
-//called to start from prior function
-//inputs data into string and generates info
-function searchWeather(cityName, latt, longg) {
-  fetch(apiForecast + latt + longg + apiKey)
-    .then(function (response) {
+      console.log(response);
       return response.json();
     })
     .then(function (data) {
