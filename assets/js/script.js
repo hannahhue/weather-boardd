@@ -1,7 +1,7 @@
 //"unauthorized key wont display ect error....401"
-var apiForecast = "https://api.openweathermap.org/data/3.0/onecall?";
+var apiForecast = "https://api.openweathermap.org/2.5/weather?q=";
 var latLong = "https://api.openweathermap.org/geo/1.0/direct?q=";
-var apiKey = "&appid=039d31a585aa282d08ff4a2d89c81fe9";
+var apiKey = "bae3b25e0cbb2d09fb32215030ed2ee9";
 //assign
 var historyContainer = $("#historyContainer");
 var searchBar = $("#bar");
@@ -28,6 +28,7 @@ function searchLatLong() {
       saveHistory(cityName, latt, longg);
     });
 }
+console.log();
 
 //called to start from prior function
 //inputs data into string and generates info
@@ -80,6 +81,6 @@ function displayHistory() {
 function callHistory() {}
 
 //search button calling functions
-searchBtn.on("click", searchLatLong, displayHistory);
+searchBtn.on("click", searchLatLong);
 
 //on.clickbtn for history container any button within container will call
