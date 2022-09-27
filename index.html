@@ -20,20 +20,24 @@
     </header>
     <main>
       <!-- search -->
-      <div>
-        <input type="text" id="bar" class="" /><button
-          id="searchBtn"
-          class="btn btn-dark"
-        >
-          Search
-        </button>
+      <div class="row p-1 text-center">
+        <div class="col-3 bg-light">
+          <input type="text" id="bar" class="" /><button
+            id="searchBtn"
+            class="btn btn-dark"
+          >
+            Search
+          </button>
+          <!-- history -->
+          <div class="" id="historyContainer"></div>
+        </div>
+        <div class="col-9 pl-2">
+          <!-- display weather -->
+          <div id="infoContainer" class="day row bg-light"></div>
+          <!-- 5 day forecast -->
+          <div id="5day" class=""></div>
+        </div>
       </div>
-      <!-- history -->
-      <div id="historyContainer" class=""></div>
-      <!-- display weather -->
-      <div id="infoContainer" class="day"></div>
-      <!-- 5 day forecast -->
-      <div id="5day" class=""></div>
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

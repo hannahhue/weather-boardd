@@ -20,13 +20,15 @@ function searchWeather() {
     .then(function (data) {
       console.log(data);
       displayWeather(data);
-      searchFiveDay(data);
+      searchFiveDay(data, cityName);
+      saveHistory(cityName, data);
     });
 }
 
+//five day cast
 function searchFiveDay(current) {
   fetch(
-    `${apiFiveDay}lat=${current.coord.lat}&lon=${current.coord.lon}&units=metric&appid=${apiKey}`
+    `${apiFiveDay}lat=${current.coord.lat}&lon=${current.coord.lon}&cnt=5&units=metric&appid=${apiKey}`
   )
     .then(function (response) {
       return response.json();
@@ -40,17 +42,19 @@ function searchFiveDay(current) {
 //api key wont work to intput info
 //should input info into container
 function displayWeather(data) {
+  infoContainer.children().remove();
+
   //present
   //wind
   var wind = $("<p>");
   wind.text(data.wind.speed + " Wind Speed.");
   infoContainer.append(wind);
   //icon
-  if (data.wind.speed < 15) {
-    infoContainer.append("🎏");
-  } else {
-    infoContainer.append("🍃");
-  }
+  // if (data.wind.speed < 15) {
+  //   infoContainer.append("🎏");
+  // } else {
+  //   infoContainer.append("🍃");
+  // }
 
   //temp
   var temp = $("<p>");
@@ -63,39 +67,63 @@ function displayWeather(data) {
   infoContainer.append(humid);
 }
 
-// function displayWeatherFiveDay(data) {
-//   //5days
-//   //wind
-//   var wind = $("<p>");
-//   wind.text(data.wind.speed + " Wind Speed.");
-//   infoContainer.append(wind);
-//   //icon
-//   if (data.wind.speed < 15) {
-//     infoContainer.append("🎏");
-//   } else {
-//     infoContainer.append("🍃");
-//   }
+//five day cast inputs
+function displayWeatherFiveDay(data, cityName) {
+  fiveDay.children().remove();
+  var day = data.list;
+  for (i = 0; i < day.length; i++) {
+    var cityNameInput = $("<h2>");
+    var cardlidate = $("<h3>");
+    var card = $("<div>");
+    var cardul = $("<ul>");
+    var cardliwind = $("<li>");
+    var cardlitemp = $("<li>");
+    var cardlihumid = $("<li>");
 
-//   //temp
-//   var temp = $("<p>");
-//   temp.text(data.main.feels_like + " Degrees.");
-//   infoContainer.append(temp);
+    cityNameInput.text(data.city.name);
+    cardlidate.text(day[i].dt_txt);
 
-//   //humidity
-//   var humid = $("<p>");
-//   humid.text(data.main.humidity + " Humidity.");
-//   infoContainer.append(humid);
-// }
+    card.addClass("card col-4");
+    cardul.addClass("list-group list-group-flush");
+    cardlihumid.addClass("list-group-item");
+    cardliwind.addClass("list-group-item");
+    cardlitemp.addClass("list-group-item");
+    card.append(cityNameInput);
+    card.append(cardlidate);
+    card.append(cardul);
+    cardul.append(cardlihumid);
+    cardul.append(cardlitemp);
+    cardul.append(cardliwind);
 
-function saveHistory(cityName, latt, longg) {
+    fiveDay.append(card);
+
+    cardliwind.text(day[i].wind.speed + " Wind Speed.");
+    //icon
+    if (day[i].wind.speed < 15) {
+      card.append("🎏");
+    } else {
+      card.append("🍃");
+    }
+
+    //temp
+    cardlitemp.text(day[i].main.feels_like + " Degrees.");
+
+    //humidity
+    cardlihumid.text(day[i].main.humidity + " Humidity.");
+  }
+}
+
+function saveHistory(cityName, data) {
   //saving local storage of searched cities
   var history = {
     cityName,
-    latt,
-    longg,
+    latt: data.coord.lat,
+    longg: data.coord.lon,
   };
 
   localStorage.setItem(cityName, JSON.stringify(history));
+
+  displayHistory();
 }
 
 function displayHistory() {
