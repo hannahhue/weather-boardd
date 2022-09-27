@@ -1,13 +1,14 @@
+//"unauthorized key wont display ect error....401"
+var apiForecast = "https://api.openweathermap.org/data/3.0/onecall?";
+var latLong = "https://api.openweathermap.org/geo/1.0/direct?q=";
+var apiKey = "&appid=039d31a585aa282d08ff4a2d89c81fe9";
 //assign
 var historyContainer = $("#historyContainer");
 var searchBar = $("#bar");
 var searchBtn = $("#searchBtn");
 var infoContainer = $("#infoContainer");
 var fiveDay = $("#5day");
-//"unauthorized key wont display ect error....401"
-var apiForecast = "https://api.openweathermap.org/data/3.0/onecall?";
-var latLong = "https://api.openweathermap.org/geo/1.0/direct?q=";
-var apiKey = "&appid=039d31a585aa282d08ff4a2d89c81fe9";
+
 //search input
 
 //starting function when clicked search button
@@ -41,6 +42,26 @@ function searchWeather(cityName, latt, longg) {
 
 //api key wont work to intput info
 //should input info into container
-function displayWeather(cityInfo) {}
+function displayWeather(cityInfo) {
+  //present
+  //icon
+  //temp
+  //humidity
+  //wind
+  //5days
+  //icon
+  //temp
+  //humidity
+  //wind
+}
 
-searchBtn.on("click", searchLatLong);
+function saveHistory() {
+  //saving local storage of searched cities
+}
+
+function displayHistory() {
+  //call local storage display under bar
+  //if clicked brings to that city ect
+}
+
+searchBtn.on("click", searchLatLong, displayHistory);
