@@ -1,3 +1,4 @@
+//assign api and key
 var apiForecast = "https://api.openweathermap.org/data/2.5/weather?q=";
 var apiKey = "bae3b25e0cbb2d09fb32215030ed2ee9";
 var apiFiveDay = "https://api.openweathermap.org/data/2.5/forecast?";
@@ -8,6 +9,7 @@ var searchBar = $("#bar");
 var searchBtn = $("#searchBtn");
 var infoContainer = $("#infoContainer");
 var fiveDay = $("#5day");
+var moment = moment();
 
 //search input
 //grabbing city in from api and turning into string
@@ -44,10 +46,10 @@ function searchFiveDay(current) {
 function displayWeather(data) {
   infoContainer.children().remove();
 
-  //present !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //get name of city plus date
-  cityNameInput.text(data.city);
-  infoContainer.text(data.main.dt);
+  var cityNameInput = $("<h2>");
+  cityNameInput.text(data.name);
+  infoContainer.append(cityNameInput);
 
   //wind icon plus current day weather and boot
   var wind = $("<p>");
@@ -101,7 +103,7 @@ function displayWeatherFiveDay(data, cityName) {
     cardul.append(cardlihumid);
     cardul.append(cardlitemp);
     cardul.append(cardliwind);
-
+    //load info into correct container
     fiveDay.append(card);
 
     cardliwind.text(day[i].wind.speed + " Wind Speed.");
@@ -136,15 +138,38 @@ function saveHistory(cityName, data) {
 function displayHistory() {
   if (localStorage.length === 0) {
   } else {
-    for (i = 0; i < localStorage.length; i++) {}
+    for (i = 0; i < localStorage.length; i++) {
+      var historyBtn = $("<button>");
+      var currentKey = localStorage.key(i);
+      var currentCity = JSON.parse(localStorage.getItem(currentKey));
+      historyBtn.text(currentCity.cityName);
+      historyBtn.addClass("btn history");
+      historyContainer.append(historyBtn);
+    }
   }
-  //call local storage display under bar
-  //if clicked brings to that city ect
 }
 
-// function callHistory() {}
+//clicked old history btns fuinction
+
+function historySearch() {
+  var cityTo = $(this).text();
+  searchWeatherHistory(cityTo);
+}
+
+function searchWeatherHistory(cityName) {
+  fetch(apiForecast + cityName + "&units=metric&appid=" + apiKey)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      displayWeather(data);
+      searchFiveDay(data, cityName);
+    });
+}
+
+//history bbuttons
+historyContainer.on("click", ".history", historySearch);
 
 //search button calling functions
 searchBtn.on("click", searchWeather);
-
-//on.clickbtn for history container any button within container will call

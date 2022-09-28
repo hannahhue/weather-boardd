@@ -8,7 +8,7 @@ This website can bring you to any city and provide not only current weather but 
 
 There is no installation required for this just visit:
 
-link~
+https://hannahhue.github.io/weather-boardd/
 
 ## Usage
 
@@ -16,19 +16,19 @@ Heres a great way to get started:
 
 Launch
 
-![alt text](assets/images/screenshot.png)
+![launched pg](assets/imgs/img1.PNG)
 
 interact with the bar and click the search button!
 
-![alt text](assets/images/screenshot.png)
+![interacted search](assets/imgs/imgg2.PNG)
 
 view your past viewed cities
 
-![alt text](assets/images/screenshot.png)
+![view history searches](assets/imgs/img3.PNG)
 
 navigate to current and future weather options
 
-![alt text](assets/images/screenshot.png)
+![view weather!](assets/imgs/img4.PNG)
 
 ## Credits
 
@@ -39,7 +39,7 @@ If you used any third-party assets that require attribution, list the creators w
 If you followed tutorials, include links to those here as well.
 
 Hannahhue: Github
-link~
+https://github.com/hannahhue/weather-boardd
 
 https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
 
