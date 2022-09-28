@@ -43,36 +43,39 @@ function searchFiveDay(current) {
 //should input info into container
 function displayWeather(data) {
   infoContainer.children().remove();
-  var cityNameInput = $("<h2>");
-  var cardlidate = $("<h3>");
-  var card = $("<div>");
-  var cardul = $("<ul>");
-  var cardliwind = $("<li>");
-  var cardlitemp = $("<li>");
-  var cardlihumid = $("<li>");
 
-  card.addClass("card col-4");
-  cardul.addClass("list-group list-group-flush");
-  cardlihumid.addClass("list-group-item");
-  cardliwind.addClass("list-group-item");
-  cardlitemp.addClass("list-group-item");
-  card.append(cityNameInput);
-  card.append(cardlidate);
-  card.append(cardul);
-  cardul.append(cardlihumid);
-  cardul.append(cardlitemp);
-  cardul.append(cardliwind);
+  //present !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //get name of city plus date
+  cityNameInput.text(data.city);
+  infoContainer.text(data.main.dt);
 
-  infoContainer.append(card);
+  //wind icon plus current day weather and boot
+  var wind = $("<p>");
+  wind.text(data.wind.speed + " Wind Speed.");
+  infoContainer.append(wind);
+  //icon
+  if (data.wind.speed < 15) {
+    infoContainer.append("🎏");
+  } else {
+    infoContainer.append("🍃");
+  }
 
-  cityNameInput.text(data.dt.);
-  
+  //temp
+  var temp = $("<p>");
+  temp.text(data.main.feels_like + " Degrees.");
+  infoContainer.append(temp);
+
+  //humidity
+  var humid = $("<p>");
+  humid.text(data.main.humidity + " Humidity.");
+  infoContainer.append(humid);
 }
 
 //five day cast inputs
 function displayWeatherFiveDay(data, cityName) {
   fiveDay.children().remove();
   var day = data.list;
+  //bootstrap
   for (i = 0; i < day.length; i++) {
     var cityNameInput = $("<h2>");
     var cardlidate = $("<h3>");
@@ -82,9 +85,11 @@ function displayWeatherFiveDay(data, cityName) {
     var cardlitemp = $("<li>");
     var cardlihumid = $("<li>");
 
+    //place city name/date
     cityNameInput.text(data.city.name);
     cardlidate.text(day[i].dt_txt);
 
+    //bootstrabcards
     card.addClass("card col-4");
     cardul.addClass("list-group list-group-flush");
     cardlihumid.addClass("list-group-item");

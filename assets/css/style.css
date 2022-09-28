@@ -1,0 +1,18 @@
+* {
+  font-family: 'Courier New', Courier, monospace;
+  min-width: 400px;
+}
+
+header {
+  margin: auto;
+  font-size: 80px;
+}
+
+#infoContainer {
+  font-size: 30px;
+  margin: auto;
+}
+
+.day {
+  border: solid, black;
+}
